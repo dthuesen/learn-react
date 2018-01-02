@@ -8,29 +8,31 @@ class SearchBar extends Component {
         this.state = {
             searchTerm: ''
         }
+
     }
+
 
     render() {
         return ( 
-            <div>
+            <div className="search-bar">
                 {/* This is a controlled field - because it is a form element 
                     whos current value is set by the state */}
                 <input 
                     value={this.state.searchTerm} // when setting the value a onChange property is required 
-                    onChange={ this.onInputChange.bind(this) } 
+                    onChange={ event => this.onInputChange(event.target.value) } 
                 />
                 <br />
-                Value of the input: {this.state.searchTerm}
             </div>
         ); 
     }
 
     // event handler function
-    onInputChange(event) {
+    onInputChange = (term) => {
         this.setState({
-            searchTerm: event.target.value
+            searchTerm: term
         });
-        console.log(this.state.searchTerm)
+        this.props.onSearchTermChange(term);
+        console.log(term)
     }
 
 };
